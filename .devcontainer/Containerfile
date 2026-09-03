@@ -1,0 +1,31 @@
+ARG BUILDKIT_INLINE_CACHE=1
+
+# The miniforge3 image does three things
+#   1) pre-installs conda and mamba
+#   2) configures the conda-forge channel
+#   3) makes conda-forge the default and only channel
+FROM condaforge/miniforge3:26.5.3-0
+
+# Install OS packages in a cache-friendly layer.
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt/lists \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends make git ca-certificates coreutils && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install conda-lock into the base environment so later layers can reuse it.
+RUN conda install -n base -c conda-forge conda-lock
+
+# Copy the environment specification and explicit lock file used by the build.
+COPY environment.yml /tmp/environment.yml
+COPY conda-linux-64.lock /tmp/conda-linux-64.lock
+
+# sets up an env, installs packages from the lockfile
+# sets the env as default and cleans after itself
+RUN --mount=type=cache,target=/opt/conda/pkgs \
+   export CONDA_ALWAYS_YES=1 && \
+   cd /tmp && \
+   conda-lock install --copy -n dev /tmp/conda-linux-64.lock && \
+   conda config --set default_activation_env dev && \
+   conda clean -afy
