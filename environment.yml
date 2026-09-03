@@ -5,3 +5,4 @@ dependencies:
   - python=3.12
   - qt6-main=6.11
   - pyside6=6.11
+  - numpy=2.5.2
