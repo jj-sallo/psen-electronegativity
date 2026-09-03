@@ -11,7 +11,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt/lists \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
-    apt-get install -y --no-install-recommends make git ca-certificates coreutils && \
+    apt-get install -y --no-install-recommends \
+        make git ca-certificates coreutils \
+        libgl1 libegl1 libxcb-cursor0 libxkbcommon-x11-0 && \
     rm -rf /var/lib/apt/lists/*
 
 # Install conda-lock into the base environment so later layers can reuse it.
