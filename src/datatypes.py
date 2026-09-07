@@ -12,7 +12,10 @@ class Edge(TypedDict):
     x2: float
     y2: float
 
-BondType = Literal["covalent", "polar", "ionic"]
+# Single source of truth for bond classification strings — must match
+# bond_logic.classify_bond()'s return values exactly, since Graph derives
+# an edge's "kind" from that function rather than accepting it as input.
+BondType = Literal["Covalent", "Polar covalent", "Ionic", "N/A"]
 
 class Bond(TypedDict):
     kind: BondType

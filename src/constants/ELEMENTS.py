@@ -1,7 +1,7 @@
-type Element = tuple[str, str, int, int, float | None]
+type ElementRow = tuple[str, str, int, int, float | None]
 
 # (symbol, name, period/row, group/col, pauling_en)
-ELEMENTS: list[Element] = [
+ELEMENTS: list[ElementRow] = [
     # Period 1
     ("H", "Hydrogen", 1, 1, 2.20), ("He", "Helium", 1, 18, None),
 

@@ -1,8 +1,6 @@
 import sys
 
-from PySide6.QtWidgets import (
-    QApplication,
-)
+from PySide6.QtWidgets import QApplication
 
 from canvas_bridge import CanvasBridge
 from element_bridge import ElementBridge
@@ -13,10 +11,7 @@ if __name__ == "__main__":
 
     canvas_bridge = CanvasBridge(
         atoms=["O", "H", "H"],
-        edges=[
-            {"a1": 0, "a2": 1, "kind": "polar"},
-            {"a1": 0, "a2": 2, "kind": "polar"},
-        ],
+        bonds=[(0, 1), (0, 2)],  # kind is derived from Pauling EN, not hand-specified
     )
     element_bridge = ElementBridge()
 
@@ -24,4 +19,3 @@ if __name__ == "__main__":
     window.show()
 
     sys.exit(app.exec())
-    

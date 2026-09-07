@@ -1,13 +1,15 @@
 from PySide6.QtCore import QObject, Property, Signal, Slot, QTimer
-from graph import Graph
+
 import datatypes as dt
+from graph import Graph
+
 
 class CanvasBridge(QObject):
     positionsChanged = Signal()
 
-    def __init__(self, atoms: list[dt.Atom], edges: list[dt.Bond]):
+    def __init__(self, atoms: list[dt.Atom], bonds: list[tuple[int, int]]) -> None:
         super().__init__()
-        self.graph = Graph(atoms, edges)
+        self.graph: Graph = Graph(atoms, bonds)
         self._width: float = 500   # sane defaults until QML reports real size
         self._height: float = 500
 
@@ -15,18 +17,18 @@ class CanvasBridge(QObject):
         self.timer.timeout.connect(self._tick)
         self.timer.start(33)
 
-    def _tick(self):
+    def _tick(self) -> None:
         self.graph.step(self._width, self._height)
         self.positionsChanged.emit()
 
     @Slot(float, float)
-    def setCanvasSize(self, width: float, height: float):
+    def setCanvasSize(self, width: float, height: float) -> None:
         self._width = width
         self._height = height
 
     @Slot(float, float, result=int)
     def hitTest(self, x: float, y: float) -> int:
-        node = self.graph.find_node_at(x, y)
+        node: int | None = self.graph.find_node_at(x, y)
         return node if node is not None else -1
 
     def get_nodes(self) -> list[dt.Node]:

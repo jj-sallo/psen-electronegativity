@@ -22,5 +22,5 @@ class ElementBridge(QObject):
     elements = Property(list, get_elements, constant=True)
 
     @Slot(str)
-    def selectAtom(self, symbol: str):
+    def selectAtom(self, symbol: str) -> None:
         self.atomAdded.emit(symbol)

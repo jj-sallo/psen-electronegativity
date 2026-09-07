@@ -6,7 +6,6 @@ from canvas_bridge import CanvasBridge
 from element_bridge import ElementBridge
 from bond_bridge import BondBridge
 from atom_picker_window import AtomPickerWindow
-import numpy as np
 
 class MainWindow(QMainWindow):
     def __init__(self, canvas_bridge: CanvasBridge, element_bridge: ElementBridge) -> None:
@@ -45,9 +44,5 @@ class MainWindow(QMainWindow):
         self.picker_window.raise_()
 
     def add_atom_from_picker(self, symbol: str) -> None:
-        graph = self.canvas_bridge.graph
-        graph.atoms.append(symbol)
-        new_pos: np.ndarray = np.random.uniform(-1, 1, size=(1, 2)) * 50 + np.array([250, 250])
-        graph.pos = np.vstack([graph.pos, new_pos])
-        graph.vel = np.vstack([graph.vel, np.zeros((1, 2))])
+        self.canvas_bridge.graph.add_atom(symbol)
         self.bond_bridge.notify_changed()
