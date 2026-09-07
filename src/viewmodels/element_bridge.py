@@ -1,5 +1,5 @@
 from PySide6.QtCore import QObject, Property, Signal, Slot
-from constants.ELEMENTS import ELEMENTS
+from models.elements import ELEMENTS
 from typing import TypedDict
 
 class Element(TypedDict):

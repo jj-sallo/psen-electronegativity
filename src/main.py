@@ -2,9 +2,9 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
-from canvas_bridge import CanvasBridge
-from element_bridge import ElementBridge
-from main_window import MainWindow
+from viewmodels.canvas_bridge import CanvasBridge
+from viewmodels.element_bridge import ElementBridge
+from views.main_window import MainWindow
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

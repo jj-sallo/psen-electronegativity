@@ -1,7 +1,7 @@
 from PySide6.QtCore import QObject, Property, Signal
 
-from bond_logic import classify_bond, electronegativity_diff, percent_ionic_character
-from graph import Graph
+from models.bond_logic import classify_bond, electronegativity_diff, percent_ionic_character
+from models.graph import Graph
 
 
 class BondBridge(QObject):

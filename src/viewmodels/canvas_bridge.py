@@ -1,7 +1,7 @@
 from PySide6.QtCore import QObject, Property, Signal, Slot, QTimer
 
-import datatypes as dt
-from graph import Graph
+import models.datatypes as dt
+from models.graph import Graph
 
 
 class CanvasBridge(QObject):

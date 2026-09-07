@@ -1,7 +1,7 @@
 import numpy as np
 
-import datatypes as dt
-from bond_logic import classify_bond, electronegativity_diff
+import models.datatypes as dt
+from models.bond_logic import classify_bond, electronegativity_diff
 
 # Colors keyed on the exact strings classify_bond() returns — this is the
 # only place bond color is decided, so canvas rendering and the bond table

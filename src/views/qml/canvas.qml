@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 
-
 Canvas {
     id: canvas
     anchors.fill: parent

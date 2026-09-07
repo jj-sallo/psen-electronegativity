@@ -1,11 +1,15 @@
 from PySide6.QtWidgets import QMainWindow, QDockWidget
 from PySide6.QtQuickWidgets import QQuickWidget
 from PySide6.QtCore import QUrl, Qt
-from canvas_container import CanvasContainer
-from canvas_bridge import CanvasBridge
-from element_bridge import ElementBridge
-from bond_bridge import BondBridge
-from atom_picker_window import AtomPickerWindow
+from views.canvas_container import CanvasContainer
+from viewmodels.canvas_bridge import CanvasBridge
+from viewmodels.element_bridge import ElementBridge
+from viewmodels.bond_bridge import BondBridge
+from views.atom_picker_window import AtomPickerWindow
+from pathlib import Path
+
+QML_DIR = Path(__file__).resolve().parent / "qml"
+
 
 class MainWindow(QMainWindow):
     def __init__(self, canvas_bridge: CanvasBridge, element_bridge: ElementBridge) -> None:
@@ -27,7 +31,7 @@ class MainWindow(QMainWindow):
         self.bond_table_widget = QQuickWidget()
         self.bond_table_widget.setResizeMode(QQuickWidget.ResizeMode.SizeRootObjectToView)
         self.bond_table_widget.rootContext().setContextProperty("bondBridge", self.bond_bridge)
-        self.bond_table_widget.setSource(QUrl.fromLocalFile("src/bond_info.qml"))
+        self.bond_table_widget.setSource(QUrl.fromLocalFile(str(QML_DIR / "bond_info.qml")))
 
         dock = QDockWidget("Bonds", self)
         dock.setWidget(self.bond_table_widget)

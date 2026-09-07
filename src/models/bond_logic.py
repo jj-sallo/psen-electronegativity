@@ -1,4 +1,5 @@
-from constants.ELEMENTS import ELEMENTS
+from models.elements import ELEMENTS
+from models.datatypes import BondType
 import math
 
 PAULING_EN: dict[str, float | None] = {symbol: en for symbol, _, _, _, en in ELEMENTS}
@@ -11,7 +12,7 @@ def electronegativity_diff(atom_a: str, atom_b: str) -> float | None:
     return abs(en_a - en_b)
 
 
-def classify_bond(delta_en: float | None) -> str:
+def classify_bond(delta_en: float | None) -> BondType:
     if delta_en is None:
         return "N/A"
     if delta_en < 0.5:

@@ -2,7 +2,10 @@ from PySide6.QtCore import QUrl
 from PySide6.QtGui import QResizeEvent
 from PySide6.QtQuickWidgets import QQuickWidget
 from PySide6.QtWidgets import  QPushButton, QVBoxLayout, QWidget
-from canvas_bridge import CanvasBridge
+from viewmodels.canvas_bridge import CanvasBridge
+from pathlib import Path
+
+QML_DIR = Path(__file__).resolve().parent / "qml"
 
 
 class CanvasContainer(QWidget):
@@ -12,7 +15,7 @@ class CanvasContainer(QWidget):
         self.quick_widget = QQuickWidget(self)
         self.quick_widget.setResizeMode(QQuickWidget.ResizeMode.SizeRootObjectToView)
         self.quick_widget.rootContext().setContextProperty("graphBridge", canvas_bridge)
-        self.quick_widget.setSource(QUrl.fromLocalFile("src/canvas.qml"))
+        self.quick_widget.setSource(QUrl.fromLocalFile(str(QML_DIR / "canvas.qml")))
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
