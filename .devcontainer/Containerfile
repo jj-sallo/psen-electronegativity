@@ -13,14 +13,14 @@ RUN --mount=type=cache,target=/var/cache/apt \
     apt-get update && \
     apt-get install -y --no-install-recommends \
         make git ca-certificates coreutils \
-        libgl1 libegl1 libxcb-cursor0 libxkbcommon-x11-0 && \
-    rm -rf /var/lib/apt/lists/*
+        libgl1 libegl1 libxcb-cursor0 libxkbcommon-x11-0 \
+        unixodbc libglib2.0-0 
 
 # Install conda-lock into the base environment so later layers can reuse it.
-RUN conda install -n base -c conda-forge conda-lock
+RUN --mount=type=cache,target=/opt/conda/pkgs \
+    conda install -n base -c conda-forge conda-lock
 
 # Copy the environment specification and explicit lock file used by the build.
-COPY environment.yml /tmp/environment.yml
 COPY conda-linux-64.lock /tmp/conda-linux-64.lock
 
 # sets up an env, installs packages from the lockfile

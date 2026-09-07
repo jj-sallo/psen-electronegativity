@@ -3,9 +3,15 @@
     "context": "..",
     "dockerfile": "Containerfile"
   },
+  "remoteEnv": {
+    "PATH": "/opt/conda/envs/dev/bin:${containerEnv:PATH}"
+  },
   "customizations": {
     "vscode": {
-      "extensions": ["ms-python.python", "theqtcompany.qt"]
+      "extensions": ["ms-python.python", "theqtcompany.qt"],
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/conda/envs/dev/bin/python"
+      }
     }
   }
 }
